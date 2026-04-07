@@ -4,6 +4,18 @@
   height: 100%;
   object-fit: contain;
 }
+.imgAnswered {
+  margin: 2em;
+  width: 10%;
+  height: 10%;
+  opacity: 1;
+}
+.imgUnanswered {
+  margin: 2em;
+  width: 10%;
+  height: 10%;
+  opacity: 0.1;
+}
 
 .overlayOff {
   position: fixed;
@@ -28,4 +40,11 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
+}
+
+.borderCorrect {
+  border: 5px solid greenyellow;
+}
+.borderIncorrect {
+  border: 5px solid red;
 }

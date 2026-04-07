@@ -4,20 +4,20 @@ import white from "../../assets/white.png";
 import dead from "../../assets/dead.png";
 import { useOutletContext } from "react-router";
 
-function AmongSelector() {
+function AmongSelector({ coords }) {
   const { userAnswer, handleAnswer } = useOutletContext();
 
   return (
     <div className={styles.amongSelector}>
       <p>Which AmongUs did you find:</p>
       <div className={styles.selectorDiv}>
-        <img src={white} alt="" />
+        <img src={white} alt="" onClick={() => handleAnswer("white", coords)} />
       </div>
       <div className={styles.selectorDiv}>
-        <img src={black} alt="" />
+        <img src={black} alt="" onClick={() => handleAnswer("black", coords)} />
       </div>
       <div className={styles.selectorDiv}>
-        <img src={dead} alt="" />
+        <img src={dead} alt="" onClick={() => handleAnswer("dead", coords)} />
       </div>
     </div>
   );

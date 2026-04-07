@@ -1,49 +1,107 @@
 import amongus from "../../assets/amongus.png";
 import styles from "./First.module.css";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useOutletContext } from "react-router";
 import AmongSelector from "../../components/amongSelector/amongSelector";
+import black from "../../assets/black.png";
+import white from "../../assets/white.png";
+import dead from "../../assets/dead.png";
+
+import { checkAnswer } from "../../services/answerService.js";
 
 function First() {
-  const { originalRef } = useOutletContext();
+  const { originalImageSize, userAnswer } = useOutletContext();
   const imgRef = useRef(null);
 
   const [overlay, setOverlay] = useState(false);
+  const [coords, setCoords] = useState({ x: null, y: null });
+  const [results, setResults] = useState({});
 
-  function handleOverlay() {
-    setOverlay(!overlay);
-  }
+  useEffect(() => {
+    console.log("timerStarted");
+
+    //setup timer
+  }, []);
 
   function handleImageClick(e) {
-    console.log(originalRef);
     const rect = imgRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const scaleFactor = originalRef.x / Math.round(rect.width);
-    const compareValue = { x: x * scaleFactor, y: y * scaleFactor };
-    console.log(compareValue);
+    const scaleFactor = originalImageSize.x / Math.round(rect.width);
+    const compareValue = {
+      x: Math.round(x * scaleFactor),
+      y: Math.round(y * scaleFactor),
+    };
 
-    console.log(`clientX: ${e.clientX}, clientY: ${e.clientY}`);
-    console.log(`posX: ${x}, posY: ${y}`);
     handleOverlay();
+    setCoords(compareValue);
   }
+  function handleOverlay() {
+    setOverlay(!overlay);
+  }
+
+  function challengeFinished() {
+    if (userAnswer.white && userAnswer.black && userAnswer.dead) {
+      return false;
+    }
+    return true;
+  }
+
+  async function handleSubmitAnswer() {
+    const result = await checkAnswer(userAnswer);
+    setResults(result);
+    // console.log(result);
+  }
+
   return (
     <div>
       <div
         className={overlay ? styles.overlayOn : styles.overlayOff}
         onClick={handleOverlay}
       >
-        <AmongSelector />
+        <AmongSelector coords={coords} />
       </div>
-      <div className={styles.imgContainer}>First Challenge</div>
-      <img
-        ref={imgRef}
-        className={styles.image}
-        src={amongus}
-        alt="First challenge"
-        onClick={(e) => handleImageClick(e)}
-      />
+      <div>
+        {" "}
+        <div>First Challenge</div>
+        <img
+          ref={imgRef}
+          className={styles.image}
+          src={amongus}
+          alt="First challenge"
+          onClick={(e) => handleImageClick(e)}
+        />
+        <div>
+          <img
+            src={black}
+            className={`
+              ${userAnswer.black ? styles.imgAnswered : styles.imgUnanswered}
+              ${results.black === true ? styles.borderCorrect : ""}
+              ${results.black === false ? styles.borderIncorrect : ""}
+            `}
+          />
+          <img
+            src={white}
+            className={`
+              ${userAnswer.white ? styles.imgAnswered : styles.imgUnanswered}
+              ${results.white === true ? styles.borderCorrect : ""}
+              ${results.white === false ? styles.borderIncorrect : ""}
+            `}
+          />
+          <img
+            src={dead}
+            className={`
+              ${userAnswer.dead ? styles.imgAnswered : styles.imgUnanswered}
+              ${results.dead === true ? styles.borderCorrect : ""}
+              ${results.dead === false ? styles.borderIncorrect : ""}
+            `}
+          />
+        </div>
+        <button onClick={handleSubmitAnswer} disabled={challengeFinished()}>
+          Submit answer
+        </button>
+      </div>
     </div>
   );
 }

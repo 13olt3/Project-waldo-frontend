@@ -1,0 +1,23 @@
+.image {
+  margin-top: 2em;
+  width: 25%;
+  height: 100%;
+  object-fit: contain;
+  margin: 1em;
+}
+
+.imgContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-items: center;
+  justify-content: center;
+}
+.borderCorrect {
+  border-bottom: 5px solid greenyellow;
+  border-right: 5px solid greenyellow;
+}
+.borderIncorrect {
+  border-bottom: 5px solid red;
+  border-right: 5px solid red;
+}

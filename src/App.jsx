@@ -4,7 +4,7 @@ import Footer from "./pages/footer/footer";
 import styles from "./App.module.css";
 
 function App() {
-  const originalRef = { x: 2000, y: 3556 };
+  const originalImageSize = { x: 2000, y: 3556 };
   const [userAnswer, setUserAnswer] = useState({
     black: null,
     white: null,
@@ -12,15 +12,16 @@ function App() {
   });
 
   function handleAnswer(target, answer) {
-    if (target === "black") {
-      setUserAnswer({ ...userAnswer, [target]: answer });
-    }
+    setUserAnswer((prev) => {
+      const newState = { ...prev, [target]: answer };
+      return newState;
+    });
   }
 
   const contextOutlet = {
     userAnswer,
     handleAnswer,
-    originalRef,
+    originalImageSize,
   };
   return (
     <>
@@ -34,3 +35,9 @@ function App() {
 }
 
 export default App;
+
+// <div>
+//   <div>{userAnswer.black && JSON.stringify(userAnswer.black)}</div>
+//   <div>{userAnswer.white && JSON.stringify(userAnswer.white)}</div>
+//   <div>{userAnswer.dead && JSON.stringify(userAnswer.dead)}</div>
+// </div>
