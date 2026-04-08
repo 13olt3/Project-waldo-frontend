@@ -1,8 +1,6 @@
 import axios from "axios";
-import api from "./api";
 
 const API_URL_SEND_ANSWER = import.meta.env.VITE_API_URL_SEND_ANSWER;
-
 const API_URL_START_TIMER = import.meta.env.VITE_API_URL_START_TIMER;
 const API_URL_END_TIMER = import.meta.env.VITE_API_URL_END_TIMER;
 const API_URL_GET_SCOREBOARD = import.meta.env.VITE_API_URL_GET_SCOREBOARD;
@@ -15,18 +13,6 @@ export const checkAnswer = async (playerAnswer) => {
       dead: playerAnswer.dead,
     });
     return response.data;
-  } catch (error) {
-    console.log("Error checking answer:", error);
-    throw error;
-  }
-};
-
-export const updateScoreboard = async (playerName) => {
-  try {
-    const response = await axios.post(API_URL_UPDATE_SCOREBOARD, {
-      playerName,
-    });
-    return response;
   } catch (error) {
     console.log("Error checking answer:", error);
     throw error;
