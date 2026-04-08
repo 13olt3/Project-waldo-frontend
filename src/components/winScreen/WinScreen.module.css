@@ -1,0 +1,20 @@
+.winScreen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+
+  background-color: #16171d;
+  opacity: 0.95;
+  padding: 2em;
+  border-radius: 5px;
+  font-size: x-large;
+}
+.scoreboardForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}

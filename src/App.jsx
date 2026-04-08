@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Outlet } from "react-router";
 import Footer from "./pages/footer/footer";
 import styles from "./App.module.css";
@@ -17,11 +17,19 @@ function App() {
       return newState;
     });
   }
+  function resetUserAnswer() {
+    setUserAnswer({
+      black: null,
+      white: null,
+      dead: null,
+    });
+  }
 
   const contextOutlet = {
     userAnswer,
     handleAnswer,
     originalImageSize,
+    resetUserAnswer,
   };
   return (
     <>

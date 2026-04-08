@@ -3,6 +3,7 @@ import { Link } from "react-router";
 
 function Footer() {
   const links = [
+    { name: "Home", path: "/" },
     { name: "First Challenge", path: "/firstpreround" },
     {
       name: "Scoreboard",

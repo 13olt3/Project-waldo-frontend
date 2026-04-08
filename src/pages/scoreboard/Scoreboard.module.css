@@ -1,0 +1,12 @@
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5em;
+}
+.scoreboardTable > th,
+td {
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 1em;
+}

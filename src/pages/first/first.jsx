@@ -6,11 +6,12 @@ import AmongSelector from "../../components/amongSelector/amongSelector";
 import black from "../../assets/black.png";
 import white from "../../assets/white.png";
 import dead from "../../assets/dead.png";
+import WinScreen from "../../components/winScreen/winScreen";
 
 import { checkAnswer } from "../../services/answerService.js";
 
 function First() {
-  const { originalImageSize, userAnswer } = useOutletContext();
+  const { originalImageSize, userAnswer, resetUserAnswer } = useOutletContext();
   const imgRef = useRef(null);
 
   const [overlay, setOverlay] = useState(false);
@@ -18,9 +19,7 @@ function First() {
   const [results, setResults] = useState({});
 
   useEffect(() => {
-    console.log("timerStarted");
-
-    //setup timer
+    resetUserAnswer();
   }, []);
 
   function handleImageClick(e) {
@@ -62,6 +61,11 @@ function First() {
       >
         <AmongSelector coords={coords} />
       </div>
+      {results.dead & results.white & results.black ? (
+        <WinScreen imgName="amongus" />
+      ) : (
+        ""
+      )}
       <div>
         {" "}
         <div>First Challenge</div>
