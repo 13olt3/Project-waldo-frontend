@@ -5,7 +5,7 @@ import dead from "../../assets/dead.png";
 import { useOutletContext } from "react-router";
 
 function AmongSelector({ coords }) {
-  const { userAnswer, handleAnswer } = useOutletContext();
+  const { handleAnswer } = useOutletContext();
 
   return (
     <div className={styles.amongSelector}>
